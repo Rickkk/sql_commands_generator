@@ -1,0 +1,46 @@
+<html>
+	<head>
+	</head>
+	<body>
+<!-- v-cloak скрывает нескомпилированные элементы, пока сущность Vue.js не готова. -->
+		<div id="main" v-cloak>
+			<div class="section">
+				<h1>Введите наименование таблицы</h1>
+				<!-- <label for="tableName">Введите наименование таблицы</label> -->
+				<input type="text" name="tableName" autofocus v-model="tableName" v-on:keyup="keyupTableName()">
+			</div>
+			<div class="section">
+				<h1>Выберите команды</h1>
+				<ul>
+					<!-- Цикл проходит по массиву услуг, присваивает обработчик для клика, и устанавливает или удаляет класс "active" -->
+					<li v-for="service in services" v-on:click="toggleActive(service)" v-bind:class="{ 'active': service.active}">
+						<!-- Показывает название и цену для каждого вложенного элемента.
+			                Vue.js имеет встроенный фильтр валют для формирования цены -->
+						{{service.name}}
+					</li>
+				</ul>	
+				<div class="total">
+					<!-- Высчитывает итоговое количество -->
+					Выделено: <span>{{total()}}</span>
+				</div>						
+			</div>
+			<div class="section">
+				<div>
+					<h1>Результат</h1>
+					<button name="copy2clipboard">Копировать sql</button>
+				</div>
+				<textarea name="result" id="" cols="30" rows="10" v-model="resultListCommands" readonly>
+					
+				</textarea>
+			</div>
+		</div>
+		<link href="style.css" rel="stylesheet" />
+		<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.5/vue.min.js"></script> -->
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+		<script src="sql_commands_generator.js"></script>
+	</body>
+</html>
